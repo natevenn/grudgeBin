@@ -8112,197 +8112,192 @@
 	var grudgeBin = __webpack_require__(466);
 
 	var GrudgeBin = function (_React$Component) {
-	    _inherits(GrudgeBin, _React$Component);
+	  _inherits(GrudgeBin, _React$Component);
 
-	    function GrudgeBin() {
-	        _classCallCheck(this, GrudgeBin);
+	  function GrudgeBin() {
+	    _classCallCheck(this, GrudgeBin);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GrudgeBin).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GrudgeBin).call(this));
 
-	        _this.state = {
-	            grudges: grudgeBin.all()
-	        };
-	        return _this;
+	    _this.state = {
+	      grudges: grudgeBin.all()
+	    };
+	    return _this;
+	  }
+
+	  _createClass(GrudgeBin, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      grudgeBin.on('change', function (grudges) {
+	        _this2.setState({ grudges: grudges });
+	      });
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'grudgeBin' },
+	        React.createElement(
+	          'header',
+	          { className: 'myGrudges' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.title
+	          ),
+	          React.createElement(GrudgeCounter, null),
+	          React.createElement(CreateGrudge, null),
+	          React.createElement(GrudgeList, { grudges: this.state.grudges })
+	        )
+	      );
+	    }
+	  }]);
 
-	    _createClass(GrudgeBin, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-
-	            grudgeBin.on('change', function (grudges) {
-	                _this2.setState({ grudges: grudges });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'div',
-	                { className: 'grudgeBin' },
-	                React.createElement(
-	                    'header',
-	                    { className: 'myGrudges' },
-	                    React.createElement(
-	                        'h1',
-	                        null,
-	                        this.props.title
-	                    ),
-	                    React.createElement(GrudgeCounter, null),
-	                    React.createElement(CreateGrudge, null),
-	                    React.createElement(GrudgeList, { grudges: this.state.grudges })
-	                )
-	            );
-	        }
-	    }]);
-
-	    return GrudgeBin;
+	  return GrudgeBin;
 	}(React.Component);
 
 	;
 
 	var CreateGrudge = function (_React$Component2) {
-	    _inherits(CreateGrudge, _React$Component2);
+	  _inherits(CreateGrudge, _React$Component2);
 
-	    function CreateGrudge() {
-	        _classCallCheck(this, CreateGrudge);
+	  function CreateGrudge() {
+	    _classCallCheck(this, CreateGrudge);
 
-	        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateGrudge).call(this));
+	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateGrudge).call(this));
 
-	        _this3.state = {
-	            person: '',
-	            grudge: ''
-	        };
-	        return _this3;
+	    _this3.state = {
+	      person: '',
+	      grudge: ''
+	    };
+	    return _this3;
+	  }
+
+	  _createClass(CreateGrudge, [{
+	    key: 'updateProperties',
+	    value: function updateProperties(e) {
+	      var _e$target = e.target;
+	      var name = _e$target.name;
+	      var value = _e$target.value;
+
+	      this.setState(_defineProperty({}, name, value));
 	    }
+	  }, {
+	    key: 'createGrudge',
+	    value: function createGrudge(e) {
+	      e.preventDefault();
+	      grudgeBin.create(this.state);
+	      this.setState({ person: '',
+	        grudge: ''
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this4 = this;
 
-	    _createClass(CreateGrudge, [{
-	        key: 'updateProperties',
-	        value: function updateProperties(e) {
-	            var _e$target = e.target;
-	            var name = _e$target.name;
-	            var value = _e$target.value;
+	      return React.createElement(
+	        'div',
+	        { className: 'createGrudge' },
+	        React.createElement('input', { className: 'createGrudge-person',
+	          name: 'person',
+	          placeholder: 'persons name',
+	          value: this.state.person,
+	          onChange: function onChange(e) {
+	            return _this4.updateProperties(e);
+	          } }),
+	        React.createElement('textarea', { className: 'createGrudge-body',
+	          name: 'grudge',
+	          placeholder: 'what they did?',
+	          value: this.state.grudge,
+	          onChange: function onChange(e) {
+	            return _this4.updateProperties(e);
+	          } }),
+	        React.createElement('input', { className: 'createGrudge-btn',
+	          name: 'submit',
+	          type: 'submit',
+	          onClick: function onClick(e) {
+	            return _this4.createGrudge(e);
+	          } })
+	      );
+	    }
+	  }]);
 
-	            this.setState(_defineProperty({}, name, value));
-	        }
-	    }, {
-	        key: 'createGrudge',
-	        value: function createGrudge(e) {
-	            e.preventDefault();
-	            grudgeBin.create(this.state);
-	            this.setState({ person: '',
-	                grudge: ''
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this4 = this;
-
-	            return React.createElement(
-	                'div',
-	                { className: 'createGrudge' },
-	                React.createElement('input', { className: 'createGrudge-person',
-	                    name: 'person',
-	                    placeholder: 'persons name',
-	                    value: this.state.person,
-	                    onChange: function onChange(e) {
-	                        return _this4.updateProperties(e);
-	                    } }),
-	                React.createElement('textarea', { className: 'createGrudge-body',
-	                    name: 'grudge',
-	                    placeholder: 'what they did?',
-	                    value: this.state.grudge,
-	                    onChange: function onChange(e) {
-	                        return _this4.updateProperties(e);
-	                    } }),
-	                React.createElement('input', { className: 'createGrudge-btn',
-	                    name: 'submit',
-	                    type: 'submit',
-	                    onClick: function onClick(e) {
-	                        return _this4.createGrudge(e);
-	                    } })
-	            );
-	        }
-	    }]);
-
-	    return CreateGrudge;
+	  return CreateGrudge;
 	}(React.Component);
 
 	var GrudgeList = function GrudgeList(props) {
-	    var grudges = props.grudges;
-	    return React.createElement(
-	        'div',
-	        { className: 'grudge-list' },
-	        grudges.map(function (grudge) {
-	            return React.createElement(GrudgeListItem, _extends({}, grudge, { key: grudge.id }));
-	        })
-	    );
-	};
-
-	var forgiveGrudge = function forgiveGrudge(forgiven, id) {
-	    if (forgiven === false) {
-	        return React.createElement(
-	            'button',
-	            { onClick: function onClick() {
-	                    return grudgeBin.forgive(id);
-	                } },
-	            'Forgive'
-	        );
-	    } else {
-	        return "Forgiven!";
-	    }
+	  var grudges = props.grudges;
+	  return React.createElement(
+	    'div',
+	    { className: 'grudge-list' },
+	    grudges.map(function (grudge) {
+	      return React.createElement(GrudgeListItem, _extends({}, grudge, { key: grudge.id }));
+	    })
+	  );
 	};
 
 	var GrudgeListItem = function GrudgeListItem(_ref) {
-	    var id = _ref.id;
-	    var person = _ref.person;
-	    var grudge = _ref.grudge;
-	    var forgiven = _ref.forgiven;
+	  var id = _ref.id;
+	  var person = _ref.person;
+	  var grudge = _ref.grudge;
+	  var forgiven = _ref.forgiven;
 
-	    return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	            'h3',
-	            null,
-	            person
-	        ),
-	        React.createElement(
-	            'div',
-	            null,
-	            grudge
-	        ),
-	        forgiveGrudge(forgiven, id)
-	    );
+	  var status = forgiven ? 'Forgiven!' : React.createElement(
+	    'button',
+	    { onClick: function onClick() {
+	        return grudgeBin.forgive(id);
+	      } },
+	    'Forgive'
+	  );
+
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h3',
+	      null,
+	      person
+	    ),
+	    React.createElement(
+	      'div',
+	      null,
+	      grudge
+	    ),
+	    status
+	  );
 	};
 
 	var GrudgeCounter = function GrudgeCounter() {
-	    var grudgeCount = grudgeBin.all().length;
-	    var forgivenGrudges = grudgeBin.forgiven().length;
-	    var unforgivenGrudges = grudgeBin.unforgiven().length;
-	    return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	            'h3',
-	            null,
-	            'Total Grudges: ',
-	            grudgeCount
-	        ),
-	        React.createElement(
-	            'h3',
-	            null,
-	            'Total Forgiven: ',
-	            forgivenGrudges
-	        ),
-	        React.createElement(
-	            'h3',
-	            null,
-	            'Total Unforgiven: ',
-	            unforgivenGrudges
-	        )
-	    );
+	  var grudgeCount = grudgeBin.all().length;
+	  var forgivenGrudges = grudgeBin.forgiven().length;
+	  var unforgivenGrudges = grudgeBin.unforgiven().length;
+
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h3',
+	      null,
+	      'Total Grudges: ',
+	      grudgeCount
+	    ),
+	    React.createElement(
+	      'h3',
+	      null,
+	      'Total Forgiven: ',
+	      forgivenGrudges
+	    ),
+	    React.createElement(
+	      'h3',
+	      null,
+	      'Total Unforgiven: ',
+	      unforgivenGrudges
+	    )
+	  );
 	};
 
 	ReactDOM.render(React.createElement(GrudgeBin, { title: 'Grudge Bin' }), document.querySelector('.application'));
